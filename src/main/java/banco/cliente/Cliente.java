@@ -1,15 +1,39 @@
-package banco;
+package banco.cliente;
 
+import banco.BaseEntity;
+import banco.Conta.Conta;
+import banco.telefone.Telefone;
+
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class Cliente {
+@Entity
+public class Cliente extends BaseEntity {
     private String cpf;
     private String nome;
+    //Associação many to many unidirecional
+    @ManyToMany
     private List<Telefone> telefones = new ArrayList<Telefone>();
+    //Associação one to one bidirecional
+    @OneToOne
+    private Cliente conjugue;
 
     public Cliente() {
-        //Construtor padrão explícito
+        super();
+    }
+
+    public Cliente(String cpf, String nome) {
+        this();
+        this.cpf = cpf;
+        this.nome = nome;
+    }
+
+    public List<Telefone> getTelefones() {
+        return Collections.unmodifiableList(telefones);
     }
 
     public String getCpf() {

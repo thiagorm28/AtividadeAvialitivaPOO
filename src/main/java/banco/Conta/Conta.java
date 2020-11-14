@@ -1,15 +1,27 @@
-package banco;
+package banco.Conta;
 
-public abstract class Conta {
+import banco.BaseEntity;
+import banco.cliente.Cliente;
+
+import javax.persistence.*;
+
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Conta extends BaseEntity {
     private double saldo;
     private int agencia;
     private int numero;
+    //Agregação unidirecional
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Cliente titular;
-    private static int total;
 
-    //Construtor alternativo
-    public Conta(int agencia, int numero) {
-        total++;
+    public Conta() {
+        super();
+    }
+
+    public Conta(Cliente titular, int agencia, int numero) {
+        this();
+        this.titular = titular;
         this.agencia = agencia;
         this.numero = numero;
     }
@@ -67,7 +79,4 @@ public abstract class Conta {
         this.titular = titular;
     }
 
-    public static int getTotal() {
-        return total;
-    }
 }

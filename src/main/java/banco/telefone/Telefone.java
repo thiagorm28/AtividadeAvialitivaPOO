@@ -1,11 +1,21 @@
-package banco;
+package banco.telefone;
 
-public class Telefone {
+import banco.BaseEntity;
+
+import javax.persistence.Entity;
+
+@Entity
+public class Telefone extends BaseEntity {
     private String tipoTelefone;
     private String numero;
     private String apelidoTelefone;
 
-    public Telefone (String numero) {
+    public Telefone() {
+        super();
+    }
+
+    public Telefone (String numero, String tipoTelefone, String apelidoTelefone) {
+        this();
         this.numero = numero;
     }
 
